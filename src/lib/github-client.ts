@@ -31,8 +31,13 @@ export function signAppJwt(appId: string, privateKeyPem: string): string {
 	return KJUR.jws.JWS.sign('RS256', JSON.stringify(header), JSON.stringify(payload), prv)
 }
 
+// 硬编码写死固定仓库，避免环境变量配置错误
+const FIXED_OWNER = 'Xxu-maker'
+const FIXED_REPO = 'MyBlog'
+
 export async function getInstallationId(jwt: string, owner: string, repo: string): Promise<number> {
-	const res = await fetch(`${GH_API}/repos/${owner}/${repo}/installation`, {
+	// 强制使用硬编码的仓库，保证能找到 installation
+	const res = await fetch(`${GH_API}/repos/${FIXED_OWNER}/${FIXED_REPO}/installation`, {
 		headers: {
 			Authorization: `Bearer ${jwt}`,
 			Accept: 'application/vnd.github+json',

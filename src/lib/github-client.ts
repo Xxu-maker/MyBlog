@@ -127,6 +127,10 @@ export type TreeItem = {
 }
 
 export async function createTree(token: string, owner: string, repo: string, tree: TreeItem[], baseTree?: string): Promise<{ sha: string }> {
+	const body: any = { tree }
+	if (baseTree) {
+		body.base_tree = baseTree
+	}
 	const res = await fetch(`${GH_API}/repos/${owner}/${repo}/git/trees`, {
 		method: 'POST',
 		headers: {
@@ -135,7 +139,7 @@ export async function createTree(token: string, owner: string, repo: string, tre
 			'X-GitHub-Api-Version': '2022-11-28',
 			'Content-Type': 'application/json'
 		},
-		body: JSON.stringify({ tree, base_tree: baseTree })
+		body: JSON.stringify(body)
 	})
 	if (res.status === 401) handle401Error()
 	if (res.status === 422) handle422Error()

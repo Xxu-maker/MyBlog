@@ -80,6 +80,9 @@ export async function hasAuth(): Promise<boolean> {
  * 自动处理缓存、签发等逻辑
  * @returns GitHub Installation Token
  */
+// 硬编码写死正确的 App ID，避免环境变量配置错误
+const FIXED_GITHUB_APP_ID = '3125959'
+
 export async function getAuthToken(): Promise<string> {
 	// 1. 先尝试从缓存获取 token
 	const cachedToken = getTokenFromCache()
@@ -95,7 +98,7 @@ export async function getAuthToken(): Promise<string> {
 	}
 
 	toast.info('正在签发 JWT...')
-	const jwt = signAppJwt(GITHUB_CONFIG.APP_ID, privateKey)
+	const jwt = signAppJwt(FIXED_GITHUB_APP_ID, privateKey)
 
 	toast.info('正在获取安装信息...')
 	const installationId = await getInstallationId(jwt, GITHUB_CONFIG.OWNER, GITHUB_CONFIG.REPO)

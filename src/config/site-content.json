@@ -50,9 +50,9 @@
 		},
 		{
 			"id": "bilbil",
-			"type": "bilbil",
+			"type": "juejin",
 			"value": "https://space.bilibili.com/34140716?spm_id_from=333.1007.0.0",
-			"label": "B站",
+			"label": "Bilbil",
 			"order": 2
 		},
 		{

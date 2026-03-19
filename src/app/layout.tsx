@@ -3,6 +3,7 @@ import '@/styles/globals.css'
 import type { Metadata } from 'next'
 import Layout from '@/layout'
 import Head from '@/layout/head'
+import Live2DWaifu from '@/components/live2d-waifu/Live2DWaifu'
 import siteContent from '@/config/site-content.json'
 
 const {
@@ -52,6 +53,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
 				/>
 
 				<Layout>{children}</Layout>
+				<Live2DWaifu />
 			</body>
 		</html>
 	)
